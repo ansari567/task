@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansari Embordering | Knits Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo">
+            <a href="#" id="home-btn">ANSARI EMBORDERING</a>
+        </div>
+        <nav class="main-nav">
+            <a href="#">New Arrivals</a>
+            <a href="#">Dresses</a>
+            <a href="#" class="active">Knits</a>
+            <a href="#">Accessories</a>
+            <a href="#">Lookbook</a>
+        </nav>
+        <div class="header-icons">
+            <a href="#" id="search-btn"><i class="fas fa-search"></i></a>
+            <a href="#" id="user-btn"><i class="fas fa-user"></i></a>
+            <a href="#" id="cart-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+    </header>
+
+    <div id="main-content-wrapper">
+
+        <main class="collection-page-wrapper" id="product-collection-view">
+            <h1 class="page-title">Hand-Embroidered Knits Collection</h1>
+            
+            <div class="content-container">
+                
+                <aside class="sidebar-filters" id="filter-form">
+                    <div class="filter-group">
+                        <h3>Filter by Fabric</h3>
+                        <ul>
+                            <li><label><input type="checkbox" data-filter-type="fabric" value="Merino Wool"> Merino Wool</label></li>
+                            <li><label><input type="checkbox" data-filter-type="fabric" value="Cashmere Blend"> Cashmere Blend</label></li>
+                            <li><label><input type="checkbox" data-filter-type="fabric" value="Silk Knit"> Silk Knit</label></li>
+                            <li><label><input type="checkbox" data-filter-type="fabric" value="Angora"> Angora</label></li>
+                        </ul>
+                    </div>
+                    <div class="filter-group">
+                        <h3>Filter by Design (Category)</h3>
+                        <ul>
+                            <li><label><input type="checkbox" data-filter-type="design" value="Cardigan"> Cardigans</label></li>
+                            <li><label><input type="checkbox" data-filter-type="design" value="Pullover"> Pullovers</label></li>
+                            <li><label><input type="checkbox" data-filter-type="design" value="Shawl"> Shawls</label></li>
+                            <li><label><input type="checkbox" data-filter-type="design" value="Vest"> Vests</label></li>
+                        </ul>
+                    </div>
+                    <div class="filter-group">
+                        <h3>Filter by Color</h3>
+                        <div class="color-options">
+                            <span class="swatch ivory" data-filter-type="color" data-value="Ivory" title="Ivory"></span>
+                            <span class="swatch soft-pink" data-filter-type="color" data-value="Soft Pink" title="Soft Pink"></span>
+                            <span class="swatch navy" data-filter-type="color" data-value="Navy" title="Navy"></span>
+                            <span class="swatch taupe" data-filter-type="color" data-value="Taupe" title="Taupe"></span>
+                            <span class="swatch grey" data-filter-type="color" data-value="Grey" title="Grey"></span>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h3>Filter by Price</h3>
+                        <input type="range" min="200" max="800" value="800" id="price-range">
+                        <p>Max Price: $<span id="max-price-display">800</span></p>
+                    </div>
+                    <button id="clear-filters-btn" class="clear-button">Clear All Filters</button>
+                </aside>
+
+                <section class="product-grid-area">
+                    <div class="sort-options-top">
+                        <span class="product-count" id="product-count-display">Showing 200 styles</span>
+                        <select id="sort-select">
+                            <option value="default">Sort By: Featured</option>
+                            <option value="new">Sort By: Newest Designs</option>
+                            <option value="price-asc">Sort By: Price: Low to High</option>
+                            <option value="price-desc">Sort By: Price: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="product-grid" id="product-list">
+                        </div>
+                    <div class="pagination" id="pagination-controls">
+                        </div>
+                </section>
+            </div>
+        </main>
+        
+        <main class="collection-page-wrapper hidden" id="shopping-cart-view">
+            <h1 class="page-title">Your Shopping Bag</h1>
+            
+            <div class="cart-stage-selector">
+                <span class="cart-stage active" id="stage-cart">1. Bag</span>
+                <span class="cart-stage" id="stage-checkout">2. Checkout</span>
+                <span class="cart-stage" id="stage-confirmation">3. Confirmation</span>
+            </div>
+
+            <section class="cart-content-wrapper" id="cart-content">
+                <div class="cart-items-container">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-item-list">
+                            </tbody>
+                    </table>
+                    <div class="cart-empty-message hidden" id="cart-empty-message">
+                        Your bag is empty. Start shopping!
+                    </div>
+                </div>
+                
+                <div class="cart-summary-box">
+                    <h3>Order Summary</h3>
+                    <div class="summary-line"><span>Subtotal:</span> $<span id="cart-subtotal">0.00</span></div>
+                    <div class="summary-line"><span>Shipping:</span> <span id="cart-shipping">FREE</span></div>
+                    <div class="summary-line summary-tax"><span>Tax (5%):</span> $<span id="cart-tax">0.00</span></div>
+                    <div class="summary-line summary-total"><span>Order Total:</span> $<span id="cart-total">0.00</span></div>
+                    <button class="checkout-button" id="proceed-to-checkout">Proceed to Checkout</button>
+                    <a href="#" class="continue-shopping" id="continue-shopping">Continue Shopping</a>
+                </div>
+            </section>
+
+            <section class="checkout-content-wrapper hidden" id="checkout-content">
+                <div class="checkout-form-container">
+                    <h2>Shipping & Payment Details</h2>
+                    <form id="checkout-form">
+                        
+                        <fieldset>
+                            <legend>Shipping Information</legend>
+                            <input type="text" id="name" placeholder="Full Name" required>
+                            <input type="email" id="email" placeholder="Email Address" required>
+                            <input type="text" id="address" placeholder="Shipping Address" required>
+                            <div class="flex-input-group">
+                                <input type="text" id="city" placeholder="City" required>
+                                <input type="text" id="zip" placeholder="Zip Code" required>
+                            </div>
+                            <input type="tel" id="phone" placeholder="Phone Number" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Payment Method</legend>
+                            <div class="payment-options">
+                                <label><input type="radio" name="payment" value="card" checked> Credit/Debit Card</label>
+                                <label><input type="radio" name="payment" value="paypal"> PayPal</label>
+                                <label><input type="radio" name="payment" value="cod"> Cash On Delivery (COD)</label>
+                            </div>
+                            <input type="text" id="card-number" placeholder="Card Number (XXXX XXXX XXXX XXXX)">
+                            <div class="flex-input-group">
+                                <input type="text" id="expiry" placeholder="MM/YY">
+                                <input type="text" id="cvv" placeholder="CVV">
+                            </div>
+                        </fieldset>
+
+                        <button type="submit" class="checkout-button">Place Final Order</button>
+                        <button type="button" class="back-button" id="back-to-cart">← Back to Bag</button>
+                    </form>
+                </div>
+                
+                <div class="cart-summary-box">
+                    <h3>Your Total</h3>
+                    <div class="summary-line summary-total"><span>Final Total:</span> $<span id="final-checkout-total">0.00</span></div>
+                    <p class="summary-tax-note">By clicking 'Place Final Order', you confirm your booking and agree to the terms.</p>
+                </div>
+            </section>
+
+            <section class="confirmation-content-wrapper hidden" id="confirmation-content">
+                <div class="confirmation-box">
+                    <i class="fas fa-check-circle confirmation-icon"></i>
+                    <h2>Order Placed Successfully!</h2>
+                    <p>Thank you for your order. Your hand-embroidered knits are being processed and will be shipped soon.</p>
+                    <div class="order-details">
+                        <p><strong>Order ID:</strong> <span id="conf-order-id">#AEB123456</span></p>
+                        <p><strong>Total Paid:</strong> $<span id="conf-order-total">0.00</span></p>
+                        <p><strong>Shipping To:</strong> <span id="conf-shipping-address"></span></p>
+                    </div>
+                    <button class="clear-button" id="start-new-shopping">Start New Shopping Session</button>
+                </div>
+            </section>
+
+        </main>
+
+    </div><footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Ansari Embordering</h3>
+                <p>Curating luxury hand-embroidered apparel since 1995. Quality, Craft, and Tradition.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Heritage</a></li>
+                    <li><a href="#">Ethical Sourcing</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Wholesale</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Exclusive Updates</h3>
+                <p>Sign up for 10% off your first hand-crafted knitwear purchase.</p>
+                <form class="subscribe-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ansari Embordering. All rights reserved.</p>
+            <p>Built with HTML & CSS/JS for interaction.</p>
+        </div>
+    </footer>
+    
+    <div id="status-message" class="status-message hidden"></div>
+
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">Account Login</h2>
+            <div class="modal-tabs">
+                <button class="tab-link active" onclick="openTab(event, 'user-login')">User</button>
+                <button class="tab-link" onclick="openTab(event, 'admin-login')">Admin</button>
+            </div>
+            <div id="user-login" class="tab-content active">
+                <form id="user-login-form">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Log in as User</button>
+                </form>
+            </div>
+            <div id="admin-login" class="tab-content">
+                <form id="admin-login-form">
+                    <input type="text" placeholder="Admin Username" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Log in as Admin</button>
+                </form>
+            </div>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+    </div>
+    
+    <div id="search-modal" class="modal-overlay hidden">
+        <div class="modal-content search-modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">Search Our Collection</h2>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="e.g., Cashmere Cardigan">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div id="search-results">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 4.1 Global State and Image Data ---
+        const PRODUCT_IMAGE_URLS = [
+            'image5.jpg',
+            'image4.jpg',
+            'image3.jpg',
+            'image2.jpg',
+            'image1.jpg',
+            'image5.jpg',
+            'image4.jpg',
+            'image3.jpg',
+            'image2.jpg',
+            'image1.jpg',
+            'image5.jpg',
+            'image4.jpg',
+            'image3.jpg',
+            'image2.jpg',
+            'image1.jpg',
+            'image5.jpg',
+            'image4.jpg',
+            'image3.jpg',
+            'image2.jpg',
+            'image1.jpg'
+    ];
+        const TAX_RATE = 0.05; // 5% tax
+        const PRODUCTS_PER_PAGE = 20; // Number of products to show per page
+
+        let PRODUCTS = [];
+        let PRODUCT_ELEMENTS = [];
+        let CART = JSON.parse(localStorage.getItem('cart')) || [];
+        let VIEW_STATE = 'collection'; // 'collection', 'cart', 'checkout', 'confirmation'
+        let currentPage = 1; // Current page for product display
+
+        // --- 4.2 Utility Functions ---
+        function showMessage(text, duration = 2000) {
+            const msgBox = document.getElementById('status-message');
+            msgBox.textContent = text;
+            msgBox.classList.remove('hidden');
+            setTimeout(() => {
+                msgBox.classList.add('hidden');
+            }, duration);
+        }
+
+        function updateCartCount() {
+            const cartCount = CART.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+            if (cartCount > 0) {
+                document.getElementById('cart-btn').classList.add('has-items');
+            } else {
+                document.getElementById('cart-btn').classList.remove('has-items');
+            }
+        }
+        
+        function switchView(newView) {
+            document.getElementById('product-collection-view').classList.add('hidden');
+            document.getElementById('shopping-cart-view').classList.add('hidden');
+            
+            // Hide all cart stages
+            document.getElementById('cart-content').classList.add('hidden');
+            document.getElementById('checkout-content').classList.add('hidden');
+            document.getElementById('confirmation-content').classList.add('hidden');
+            
+            // Deactivate all stage indicators
+            document.getElementById('stage-cart').classList.remove('active');
+            document.getElementById('stage-checkout').classList.remove('active');
+            document.getElementById('stage-confirmation').classList.remove('active');
+            
+            VIEW_STATE = newView;
+            
+            if (newView === 'collection') {
+                document.getElementById('product-collection-view').classList.remove('hidden');
+                // When returning to collection, reset to page 1 and re-render
+                currentPage = 1;
+                applyFilters(); // This will trigger renderProducts and renderPagination
+            } else if (newView === 'cart') {
+                document.getElementById('shopping-cart-view').classList.remove('hidden');
+                document.getElementById('cart-content').classList.remove('hidden');
+                document.getElementById('stage-cart').classList.add('active');
+                renderCart();
+            } else if (newView === 'checkout') {
+                document.getElementById('shopping-cart-view').classList.remove('hidden');
+                document.getElementById('checkout-content').classList.remove('hidden');
+                document.getElementById('stage-cart').classList.add('active');
+                document.getElementById('stage-checkout').classList.add('active');
+                calculateTotals(true); // Update total for checkout
+            } else if (newView === 'confirmation') {
+                document.getElementById('shopping-cart-view').classList.remove('hidden');
+                document.getElementById('confirmation-content').classList.remove('hidden');
+                document.getElementById('stage-cart').classList.add('active');
+                document.getElementById('stage-checkout').classList.add('active');
+                document.getElementById('stage-confirmation').classList.add('active');
+            }
+            window.scrollTo(0, 0); // Scroll to top on view change
+        }
+
+
+        // --- 4.3 Data Generation (Existing) ---
+        function getProductData() {
+            const fabrics = ["Merino Wool", "Cashmere Blend", "Silk Knit", "Angora"];
+            const designs = ["Cardigan", "Pullover", "Shawl", "Vest"];
+            const colors = ["Ivory", "Soft Pink", "Navy", "Taupe", "Grey"];
+            const tags = ["New Arrival", "Best Seller", "Seasonal"];
+            const products = [];
+            
+            // This is where we create a large number of products, but with a limited set of images
+            for (let i = 1; i <= 200; i++) {
+                const fabric = fabrics[Math.floor(Math.random() * fabrics.length)];
+                const design = designs[Math.floor(Math.random() * designs.length)];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const price = Math.floor(Math.random() * (799 - 250 + 1)) + 250;
+                const tag = tags[i % 3];
+
+                // Assign a unique image from the array by using the product index
+                const imageUrl = PRODUCT_IMAGE_URLS[(i - 1) % PRODUCT_IMAGE_URLS.length];
+
+                products.push({
+                    id: i,
+                    name: `${design} with ${fabric} Knit ${i}`,
+                    fabric: fabric,
+                    design: design,
+                    color: color,
+                    price: price,
+                    tag: tag,
+                    imageUrl: imageUrl, 
+                });
+            }
+            return products;
+        }
+
+        // --- 4.4 DOM Generation (UPDATED FOR SINGLE IMAGE) ---
+        function generateProductElements(products) {
+            const productElements = [];
+            products.forEach(product => {
+                const card = document.createElement('article');
+                card.className = 'product-card';
+                card.setAttribute('data-fabric', product.fabric);
+                card.setAttribute('data-design', product.design);
+                card.setAttribute('data-color', product.color);
+                card.setAttribute('data-price', product.price);
+                card.setAttribute('data-name', product.name);
+                card.setAttribute('data-id', product.id); // Add data-id for easier lookup
+
+                card.innerHTML = `
+                    <a href="#" class="product-link">
+                        <div class="image-wrapper">
+                            <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
+                            <span class="tag ${product.tag.toLowerCase().replace(/ /g, '-')}">${product.tag}</span>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <h4>${product.name}</h4>
+                        <p class="price">$${product.price.toFixed(2)}</p>
+                        <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                    </div>
+                `;
+                
+                productElements.push(card);
+            });
+            return productElements;
+        }
+
+        // --- 4.5 Filtering & Sorting (Existing) ---
+        function applyFilters() {
+            const activeFilters = {
+                fabric: new Set(), design: new Set(), color: new Set(),
+                maxPrice: parseInt(document.getElementById('price-range').value)
+            };
+            document.querySelectorAll('#filter-form input[type="checkbox"]:checked').forEach(checkbox => {
+                const type = checkbox.getAttribute('data-filter-type');
+                activeFilters[type].add(checkbox.value);
+            });
+            document.querySelectorAll('.color-options .swatch.active').forEach(swatch => {
+                activeFilters.color.add(swatch.getAttribute('data-value'));
+            });
+            
+            let filteredProducts = [];
+            PRODUCTS.forEach(product => {
+                let passesFabric = activeFilters.fabric.size === 0 || activeFilters.fabric.has(product.fabric);
+                let passesDesign = activeFilters.design.size === 0 || activeFilters.design.has(product.design);
+                let passesColor = activeFilters.color.size === 0 || activeFilters.color.has(product.color);
+                let passesPrice = product.price <= activeFilters.maxPrice;
+
+                if (passesFabric && passesDesign && passesColor && passesPrice) {
+                    filteredProducts.push(product);
+                }
+            });
+
+            // Update PRODUCT_ELEMENTS based on filtered products
+            PRODUCT_ELEMENTS = generateProductElements(filteredProducts);
+            
+            document.getElementById('product-count-display').textContent = `Showing ${filteredProducts.length} styles`;
+            
+            // Reset to first page after filters/sort
+            currentPage = 1; 
+            applySort(); // applySort will call renderProducts and renderPagination
+        }
+
+        function applySort() {
+            const sortType = document.getElementById('sort-select').value;
+            
+            PRODUCT_ELEMENTS.sort((a, b) => {
+                const priceA = parseInt(a.getAttribute('data-price'));
+                const priceB = parseInt(b.getAttribute('data-price'));
+                if (sortType === 'price-asc') return priceA - priceB;
+                if (sortType === 'price-desc') return priceB - priceA;
+                return 0; // Default or 'new' sort (maintain current order)
+            });
+            
+            renderProducts();
+            renderPagination();
+        }
+
+        // --- NEW: Render Products for current page ---
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; // Clear current products
+
+            const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+            const endIndex = startIndex + PRODUCTS_PER_PAGE;
+            
+            const productsToDisplay = PRODUCT_ELEMENTS.slice(startIndex, endIndex);
+
+            productsToDisplay.forEach(card => productList.appendChild(card));
+        }
+
+        // --- NEW: Render Pagination Controls ---
+        function renderPagination() {
+            const paginationControls = document.getElementById('pagination-controls');
+            paginationControls.innerHTML = ''; // Clear existing pagination
+
+            const totalPages = Math.ceil(PRODUCT_ELEMENTS.length / PRODUCTS_PER_PAGE);
+
+            if (totalPages <= 1 && PRODUCT_ELEMENTS.length > 0) { // If only one page, still show page 1
+                 const pageLink = document.createElement('a');
+                 pageLink.href = '#';
+                 pageLink.textContent = 1;
+                 pageLink.classList.add('current-page');
+                 paginationControls.appendChild(pageLink);
+                 return;
+            } else if (totalPages === 0) { // If no products, hide pagination
+                return;
+            }
+
+            // Prev button
+            const prevLink = document.createElement('a');
+            prevLink.href = '#';
+            prevLink.textContent = '« Prev';
+            if (currentPage === 1) {
+                prevLink.classList.add('disabled');
+            } else {
+                prevLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage--;
+                    renderProducts();
+                    renderPagination();
+                    window.scrollTo(0, 0); // Scroll to top
+                });
+            }
+            paginationControls.appendChild(prevLink);
+
+            // Page numbers
+            let startPage = Math.max(1, currentPage - 1);
+            let endPage = Math.min(totalPages, currentPage + 1);
+
+            // Adjust window if near start or end
+            if (currentPage <= 2) {
+                endPage = Math.min(totalPages, 3);
+            } else if (currentPage >= totalPages - 1) {
+                startPage = Math.max(1, totalPages - 2);
+            }
+
+            if (startPage > 1) {
+                const firstPageLink = document.createElement('a');
+                firstPageLink.href = '#';
+                firstPageLink.textContent = 1;
+                firstPageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = 1;
+                    renderProducts();
+                    renderPagination();
+                    window.scrollTo(0, 0);
+                });
+                paginationControls.appendChild(firstPageLink);
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    paginationControls.appendChild(ellipsis);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                if (i === currentPage) {
+                    pageLink.classList.add('current-page');
+                }
+                pageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    renderProducts();
+                    renderPagination();
+                    window.scrollTo(0, 0); // Scroll to top
+                });
+                paginationControls.appendChild(pageLink);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    paginationControls.appendChild(ellipsis);
+                }
+                const lastPageLink = document.createElement('a');
+                lastPageLink.href = '#';
+                lastPageLink.textContent = totalPages;
+                lastPageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = totalPages;
+                    renderProducts();
+                    renderPagination();
+                    window.scrollTo(0, 0);
+                });
+                paginationControls.appendChild(lastPageLink);
+            }
+
+            // Next button
+            const nextLink = document.createElement('a');
+            nextLink.href = '#';
+            nextLink.textContent = 'Next »';
+            if (currentPage === totalPages) {
+                nextLink.classList.add('disabled');
+            } else {
+                nextLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage++;
+                    renderProducts();
+                    renderPagination();
+                    window.scrollTo(0, 0); // Scroll to top
+                });
+            }
+            paginationControls.appendChild(nextLink);
+        }
+
+
+        // --- 4.6 NEW CART LOGIC (Existing) ---
+        
+        function calculateTotals(forCheckout = false) {
+            const subtotal = CART.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * TAX_RATE;
+            const total = subtotal + tax;
+
+            const format = (num) => num.toFixed(2);
+
+            document.getElementById('cart-subtotal').textContent = format(subtotal);
+            document.getElementById('cart-tax').textContent = format(tax);
+            document.getElementById('cart-total').textContent = format(total);
+
+            if (forCheckout) {
+                 document.getElementById('final-checkout-total').textContent = format(total);
+            }
+
+            return { subtotal, tax, total };
+        }
+
+        function updateCartInStorage() {
+            localStorage.setItem('cart', JSON.stringify(CART));
+            updateCartCount();
+            calculateTotals();
+        }
+
+        function updateQuantity(id, change) {
+            const item = CART.find(i => i.id === id);
+            if (!item) return;
+
+            item.quantity += change;
+
+            if (item.quantity <= 0) {
+                removeItem(id);
+            } else {
+                updateCartInStorage();
+                renderCart();
+            }
+        }
+
+        function removeItem(id) {
+            CART = CART.filter(i => i.id !== id);
+            updateCartInStorage();
+            renderCart();
+            showMessage('Product removed from bag.', 1500);
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cart-item-list');
+            list.innerHTML = '';
+
+            if (CART.length === 0) {
+                document.getElementById('cart-empty-message').classList.remove('hidden');
+                document.getElementById('cart-content').classList.add('empty');
+                document.getElementById('proceed-to-checkout').disabled = true;
+                calculateTotals();
+                return;
+            }
+
+            document.getElementById('cart-empty-message').classList.add('hidden');
+            document.getElementById('cart-content').classList.remove('empty');
+            document.getElementById('proceed-to-checkout').disabled = false;
+
+
+            CART.forEach(item => {
+                const row = document.createElement('tr');
+                const lineTotal = item.price * item.quantity;
+                
+                row.innerHTML = `
+                    <td class="product-info-cell">
+                        <img src="${item.imageUrl}" alt="${item.name}">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p class="cart-product-details">Fabric: ${item.fabric}</p>
+                        </div>
+                    </td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>
+                        <div class="quantity-control">
+                            <button class="qty-btn" data-id="${item.id}" data-change="-1">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" data-id="${item.id}" data-change="1">+</button>
+                        </div>
+                    </td>
+                    <td>$${lineTotal.toFixed(2)}</td>
+                    <td>
+                        <button class="remove-item-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                `;
+                list.appendChild(row);
+            });
+
+            calculateTotals();
+        }
+
+        // --- 4.7 Checkout and Order Handling (Existing) ---
+
+        function handleCheckout(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const total = document.getElementById('final-checkout-total').textContent;
+            
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            document.getElementById('conf-order-id').textContent = '#AEB' + Math.floor(Math.random() * 900000 + 100000);
+            document.getElementById('conf-order-total').textContent = total;
+            document.getElementById('conf-shipping-address').textContent = `${name}, ${address}`;
+
+            switchView('confirmation');
+            
+            CART = [];
+            localStorage.removeItem('cart');
+            updateCartCount();
+
+            showMessage(`Order Placed! Payment via ${paymentMethod.toUpperCase()} successful.`, 4000);
+        }
+
+
+        // --- 4.8 Initialization and Event Listeners (UPDATED) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            PRODUCTS = getProductData();
+            PRODUCT_ELEMENTS = generateProductElements(PRODUCTS); // Generate all product elements initially
+            
+            applyFilters(); // This will now trigger initial rendering and pagination setup
+            updateCartCount();
+            
+            // View Switching Listeners
+            document.getElementById('home-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView('collection');
+            });
+            document.getElementById('cart-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView('cart');
+            });
+            document.getElementById('continue-shopping').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView('collection');
+            });
+            document.getElementById('proceed-to-checkout').addEventListener('click', () => {
+                switchView('checkout');
+            });
+            document.getElementById('back-to-cart').addEventListener('click', () => {
+                switchView('cart');
+            });
+            document.getElementById('start-new-shopping').addEventListener('click', () => {
+                 switchView('collection');
+            });
+
+            // Form Submissions
+            document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
+            document.getElementById('cart-item-list').addEventListener('click', (e) => {
+                const target = e.target;
+                if (target.classList.contains('qty-btn')) {
+                    const id = parseInt(target.getAttribute('data-id'));
+                    const change = parseInt(target.getAttribute('data-change'));
+                    updateQuantity(id, change);
+                } else if (target.closest('.remove-item-btn')) {
+                    const id = parseInt(target.closest('.remove-item-btn').getAttribute('data-id'));
+                    removeItem(id);
+                }
+            });
+            
+            // Delegated event listener for add to cart buttons
+            document.getElementById('product-list').addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const productId = parseInt(e.target.getAttribute('data-id'));
+                    // Find the original product data from the PRODUCTS array
+                    const productToAdd = PRODUCTS.find(p => p.id === productId);
+                    
+                    const existingItem = CART.find(item => item.id === productToAdd.id);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        CART.push({ ...productToAdd, quantity: 1 }); 
+                    }
+                    updateCartInStorage();
+                    showMessage(`${productToAdd.name} added to your bag!`, 2000);
+                }
+            });
+
+            // Modal Listeners
+            const loginModal = document.getElementById('login-modal');
+            const searchModal = document.getElementById('search-modal');
+            document.getElementById('user-btn').addEventListener('click', () => loginModal.classList.remove('hidden'));
+            document.getElementById('search-btn').addEventListener('click', () => searchModal.classList.remove('hidden'));
+            document.querySelectorAll('.modal-overlay .close-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => e.target.closest('.modal-overlay').classList.add('hidden'));
+            });
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-overlay')) {
+                        e.target.classList.add('hidden');
+                    }
+                });
+            });
+            window.openTab = function(evt, tabName) {
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(tab => tab.classList.remove('active'));
+                const tabLinks = document.querySelectorAll('.tab-link');
+                tabLinks.forEach(link => link.classList.remove('active'));
+                document.getElementById(tabName).classList.add('active');
+                evt.currentTarget.classList.add('active');
+            }
+
+            document.getElementById('user-login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showMessage("User login successful! Redirecting to user dashboard...", 2000);
+                setTimeout(() => loginModal.classList.add('hidden'), 1000);
+            });
+
+            document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showMessage("Admin login successful! Redirecting to admin dashboard...", 2000);
+                setTimeout(() => loginModal.classList.add('hidden'), 1000);
+            });
+            
+            // Filter/Sort Listeners
+            const filterForm = document.getElementById('filter-form');
+            filterForm.addEventListener('change', (e) => { if (e.target.matches('input[type="checkbox"]')) { applyFilters(); } });
+            const priceRange = document.getElementById('price-range');
+            priceRange.addEventListener('input', () => { document.getElementById('max-price-display').textContent = priceRange.value; applyFilters(); });
+            document.querySelectorAll('.color-options .swatch').forEach(swatch => {
+                swatch.addEventListener('click', function() { this.classList.toggle('active'); applyFilters(); });
+            });
+            document.getElementById('clear-filters-btn').addEventListener('click', () => {
+                document.querySelectorAll('#filter-form input[type="checkbox"]').forEach(cb => cb.checked = false);
+                document.querySelectorAll('.color-options .swatch').forEach(sw => sw.classList.remove('active'));
+                priceRange.value = 800;
+                document.getElementById('max-price-display').textContent = 800;
+                document.getElementById('sort-select').value = 'default';
+                applyFilters();
+                showMessage("All filters cleared!", 1500);
+            });
+            document.getElementById('sort-select').addEventListener('change', applySort);
+        });
+    </script>
+</body>
+</html>
