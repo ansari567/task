@@ -693,3 +693,57 @@ a:hover {
     }
     
 }
+
+
+/* ==== Added for multi-page navbar views ==== */
+.page { padding: var(--spacing-large) 5%; }
+
+.hero {
+  background: url('image5.jpg') center/cover no-repeat;
+  min-height: 48vh;
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--spacing-large);
+}
+.hero-inner {
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  padding: 30px 35px;
+  border-radius: 12px;
+  text-align: center;
+}
+.hero-inner h1 { font-size: 2.2rem; margin-bottom: 10px; }
+.hero-inner p  { opacity: .95; margin-bottom: 14px; }
+.hero-inner .cta { display: inline-block; background: #fff; color: #000; padding: 10px 18px; }
+
+.section-title { margin: 10px 0 var(--spacing-medium); }
+
+.simple-grid .product-grid { grid-template-columns: repeat(4, 1fr); }
+
+/* Lookbook */
+.lookbook-subtitle { text-align: center; margin-top: -10px; margin-bottom: 20px; opacity: .8; }
+.lookbook-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.lookbook-gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; }
+
+/* color swatches visual */
+.color-options .swatch { display:inline-block; width:22px; height:22px; border-radius:50%; border:1px solid #ccc; margin-right:8px; cursor:pointer; }
+.color-options .swatch.ivory { background:#f7f4ea; }
+.color-options .swatch.soft-pink { background:#f7c6d0; }
+.color-options .swatch.navy { background:#23314d; }
+.color-options .swatch.taupe { background:#b59f8c; }
+.color-options .swatch.grey { background:#bfc4c8; }
+.color-options .swatch.active { outline:2px solid var(--primary-color); }
+
+/* mobile tweaks */
+@media (max-width: 1024px){
+  .simple-grid .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .lookbook-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px){
+  .simple-grid .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .lookbook-gallery { grid-template-columns: repeat(2, 1fr); }
+}
